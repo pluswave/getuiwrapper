@@ -1,2 +1,15 @@
 <?xml version='1.0' encoding='utf-8'?>
-<plugin id="com.pluswave.getui.wrapper" version="0.1.0" xmlns="http://apache.org/cordova/ns/plugins/1.0" xmlns:android="http://schemas.android.com/apk/res/android"><name>getuiwrapper</name><js-module name="getuiwrapper" src="www/getuiwrapper.js"><clobbers target="cordova.plugins.getuiwrapper" /></js-module><platform name="android"><config-file parent="/*" target="res/xml/config.xml"><feature name="getuiwrapper"><param name="android-package" value="com.pluswave.getui.wrapper.getuiwrapper" /></feature></config-file><config-file parent="/*" target="AndroidManifest.xml"></config-file><source-file src="src/android/getuiwrapper.java" target-dir="src/com/pluswave/getui/wrapper/getuiwrapper" /></platform></plugin>
+<plugin id="com.pluswave.getui.wrapper" version="0.1.0" xmlns="http://apache.org/cordova/ns/plugins/1.0" xmlns:android="http://schemas.android.com/apk/res/android">
+  <name>getuiwrapper</name>
+  <js-module name="getuiwrapper" src="www/getuiwrapper.js"><clobbers target="cordova.plugins.getuiwrapper" /></js-module>
+  <platform name="android">
+    <config-file parent="/*" target="res/xml/config.xml">
+      <feature name="getuiwrapper">
+        <param name="android-package" value="com.pluswave.getui.wrapper.getuiwrapper" />
+      </feature>
+    </config-file>
+    <config-file parent="/*" target="AndroidManifest.xml">
+    </config-file>
+    <source-file src="src/android/getuiwrapper.java" target-dir="src/com/pluswave/getui/wrapper/getuiwrapper" />
+  </platform>
+</plugin>
