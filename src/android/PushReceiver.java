@@ -15,7 +15,7 @@ public class PushReceiver extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
         Bundle bundle = intent.getExtras();
-        Log.d("GetuiSdkDemo", "onReceive() action=" + bundle.getInt("action"));
+        Log.d("PushReceiver", "onReceive() action=" + bundle.getInt("action"));
 
         switch (bundle.getInt(PushConsts.CMD_ACTION)) {
         case PushConsts.GET_MSG_DATA:
