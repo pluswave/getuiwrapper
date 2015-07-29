@@ -3,13 +3,154 @@
   <name>getuiwrapper</name>
   <js-module name="getuiwrapper" src="www/getuiwrapper.js"><clobbers target="cordova.plugins.getuiwrapper" /></js-module>
   <platform name="android">
+    <preference name="APP_ID" />
+    <preference name="APP_KEY" />
+    <preference name="APP_SECRET" />
+    <preference name="PACKAGE_ID" />
     <config-file parent="/*" target="res/xml/config.xml">
       <feature name="getuiwrapper">
         <param name="android-package" value="com.pluswave.getui.wrapper.getuiwrapper" />
       </feature>
     </config-file>
     <config-file parent="/*" target="AndroidManifest.xml">
+
+      <!-- 个推SDK权限配置开始 -->
+      <uses-permission android:name="android.permission.INTERNET" />
+      <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+      <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+      <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
+      <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+      <uses-permission android:name="android.permission.WAKE_LOCK" />
+      <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+      <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+      <uses-permission android:name="android.permission.VIBRATE" />
+      <uses-permission android:name="android.permission.GET_TASKS" />
+
+      <!-- 浮动通知权限 -->
+      <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
+      <!-- 自定义权限 -->
+      <uses-permission android:name="getui.permission.GetuiService.$PACKAGE_ID" />
+
+      <permission
+          android:name="getui.permission.GetuiService.$PACKAGE_ID"
+          android:protectionLevel="normal" >
+      </permission>
+
+      <!-- 个推SDK权限配置结束 -->      
     </config-file>
-    <source-file src="src/android/getuiwrapper.java" target-dir="src/com/pluswave/getui/wrapper/getuiwrapper" />
+    
+    <config-file parent="application" target="AndroidManifest.xml" >
+        <!-- 个推SDK配置开始 -->
+        <!-- 配置的第三方参数属性 -->
+        <meta-data
+            android:name="PUSH_APPID"
+            android:value="$APP_ID" />
+        <meta-data
+            android:name="PUSH_APPKEY"
+            android:value="$APP_KEY" />
+        <meta-data
+            android:name="PUSH_APPSECRET"
+            android:value="$APP_SECRET" />
+
+        <!-- 配置第三方Receiver -->
+        <receiver
+            android:name="com.pluswave.getui.wrapper.PushReceiver"
+            android:exported="false" >
+            <intent-filter>
+                <action android:name="com.igexin.sdk.action.$APP_ID" />
+            </intent-filter>
+        </receiver>
+
+        <!-- 配置SDK核心服务 -->
+        <service
+            android:name="com.igexin.sdk.PushService"
+            android:exported="true"
+            android:label="NotificationCenter"
+            android:process=":pushservice" >
+        </service>
+        <service
+            android:name="com.igexin.sdk.PushServiceUser"
+            android:exported="true"
+            android:label="NotificationCenterUser" >
+        </service>
+
+        <receiver android:name="com.igexin.sdk.PushReceiver" >
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+                <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
+                <action android:name="android.intent.action.USER_PRESENT" />
+                <action android:name="com.igexin.sdk.action.refreshls" />
+                <!-- 以下三项为可选的action声明，可大大提高service存活率和消息到达速度 -->
+                <action android:name="android.intent.action.MEDIA_MOUNTED" />
+                <action android:name="android.intent.action.ACTION_POWER_CONNECTED" />
+                <action android:name="android.intent.action.ACTION_POWER_DISCONNECTED" />
+            </intent-filter>
+        </receiver>
+        <receiver
+            android:name="com.igexin.sdk.PushManagerReceiver"
+            android:exported="false" >
+            <intent-filter>
+                <action android:name="com.igexin.sdk.action.pushmanager" />
+            </intent-filter>
+        </receiver>
+
+        <activity
+            android:name="com.igexin.sdk.PushActivity"
+            android:excludeFromRecents="true"
+            android:exported="false"
+            android:process=":pushservice"
+            android:taskAffinity="com.igexin.sdk.PushActivityTask"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" >
+        </activity>
+
+        <service
+            android:name="com.igexin.download.DownloadService"
+            android:process=":pushservice" />
+
+        <receiver android:name="com.igexin.download.DownloadReceiver" >
+            <intent-filter>
+                <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
+            </intent-filter>
+        </receiver>
+
+        <provider
+            android:name="com.igexin.download.DownloadProvider"
+            android:authorities="downloads.$PACKAGE_ID"
+            android:process=":pushservice" />
+
+        <activity
+            android:name="com.igexin.getuiext.activity.GetuiExtActivity"
+            android:configChanges="orientation|keyboard|keyboardHidden"
+            android:excludeFromRecents="true"
+            android:exported="false"
+            android:process=":pushservice"
+            android:taskAffinity="android.task.myServicetask"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+
+        <receiver
+            android:name="com.igexin.getuiext.service.PayloadReceiver"
+            android:exported="false" >
+            <intent-filter>
+                <action android:name="com.igexin.sdk.action.7fjUl2Z3LH6xYy7NQK4ni4" />
+                <action android:name="com.igexin.sdk.action.$APP_ID" />
+            </intent-filter>
+        </receiver>
+
+        <service
+            android:name="com.igexin.getuiext.service.GetuiExtService"
+            android:process=":pushservice" />
+
+        <!-- 个推SDK配置结束 -->
+
+      
+    </config-file>
+    <source-file src="src/android/getuiwrapper.java" target-dir="src/com/pluswave/getui/wrapper" />
+    <source-file src="src/android/PushReceiver.java" target-dir="src/com/pluswave/getui/wrapper" />
+    <source-file src="src/android/libs/GetuiExt-2.0.3.jar" target-dir="libs" />
+    <source-file src="src/android/libs/GetuiSDK2.6.0.0.jar" target-dir="libs" />
+    <source-file src="src/android/libs/json_simple-1.1.jar" target-dir="libs" />
+    <source-file src="src/android/armeabi/libgetuiext.so" target-dir="libs/armeabi" />
+    <source-file src="src/android/armeabi-v7a/libgetuiext.so" target-dir="libs/armeabi-v7a" />
+ 
   </platform>
 </plugin>
