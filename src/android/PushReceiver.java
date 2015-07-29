@@ -10,8 +10,14 @@ import android.util.Log;
 import com.igexin.sdk.PushConsts;
 import com.igexin.sdk.PushManager;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 public class PushReceiver extends BroadcastReceiver {
 
+    static String gClientid = null;
+    
     @Override
     public void onReceive(Context context, Intent intent) {
         Bundle bundle = intent.getExtras();
@@ -21,11 +27,22 @@ public class PushReceiver extends BroadcastReceiver {
         case PushConsts.GET_MSG_DATA:
             // 获取透传数据
             byte[] payload = bundle.getByteArray("payload");
-
+            JSONObject o = null;
+            try{
+                o = new JSONObject(new String(payload));
+            }
+            catch( Exception e){
+                
+            }
+            if( o != null ){
+                getuiwrapper.sendJavascript(o);                
+            }
+            
+            
             break;
         case PushConsts.GET_CLIENTID:
             String cid = bundle.getString("clientid");
-
+            gClientid = cid;
             break;
 
         case PushConsts.THIRDPART_FEEDBACK:
