@@ -28,11 +28,12 @@ public class PushReceiver extends BroadcastReceiver {
             // 获取透传数据
             byte[] payload = bundle.getByteArray("payload");
             JSONObject o = null;
+            String pstr = new String(payload);
             try{
-                o = new JSONObject(new String(payload));
+                o = new JSONObject(pstr);
             }
             catch( Exception e){
-                
+                Log.d("PushReceiver", "Json parse error: " + pstr);
             }
             if( o != null ){
                 getuiwrapper.sendJavascript(o);                
