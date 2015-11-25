@@ -1,9 +1,5 @@
 var exec = require('cordova/exec');
 
-exports.coolMethod = function(arg0, success, error) {
-    exec(success, error, "getuiwrapper", "coolMethod", [arg0]);
-};
-
 var push_cbs = [];
 exports.registerPushListener = function(cb){
     if( push_cbs.indexOf(cb) < 0 )
