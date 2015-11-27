@@ -28,22 +28,25 @@
 - (void)GeTuiSdkDidReceivePayload:(NSString *)payloadId andTaskId:(NSString *)taskId andMessageId:(NSString *)aMsgId andOffLine:(BOOL)offLine fromApplication:(NSString *)appId {
     // [4]: 收到个推消息
     NSData *payload = [GeTuiSdk retrivePayloadById:payloadId];
-    NSString *payloadMsg = nil;
-    if (payload) {
+    NSDictionary *dict = nil;
+
+    if( payload ){
+      dict = [NSJSONSerialization JSONObjectWithData:payload options:0 error:nil];
+    }
+    
+    if( dict ){
+      NSString *payloadMsg = nil;
+      if (payload) {
         payloadMsg = [[NSString alloc] initWithBytes:payload.bytes
                                               length:payload.length
                                             encoding:NSUTF8StringEncoding];
+      }    
+     
+      NSString *r = [NSString stringWithFormat:@"cordova.plugins.getuiwrapper.messageReceived(%@)", payloadMsg];
+      // corodva-ios 4.0 [self.webViewEngine evaluateJavaScript:r completionHandler:nil];
+      [self.commandDelegate evalJs:r ];
     }
-
     
-    
-    /*
-    NSString *record = [NSString stringWithFormat:@"%d, %@, %@%@", ++_lastPayloadIndex, [self formateTime:[NSDate date]], payloadMsg, offLine ? @"<离线消息>" : @""];
-    [_viewController logMsg:record];
-
-    NSString *msg = [NSString stringWithFormat:@"%@ : %@%@", [self formateTime:[NSDate date]], payloadMsg, offLine ? @"<离线消息>" : @""];
-    NSLog(@"GexinSdkReceivePayload : %@, taskId: %@, msgId :%@", msg, taskId, aMsgId);
-    */
 }
 
 /** SDK收到sendMessage消息回调 */

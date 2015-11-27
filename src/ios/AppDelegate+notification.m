@@ -66,9 +66,7 @@ static char launchNotificationKey;
         
        }
       // [1]:使用APPID/APPKEY/APPSECRENT创建个推实例
-      // 注：该代码写法仅适用演示Demo，正式集成可简化，请参考“集成Demo”
-      // 该方法需要在主线程中调用
-
+    
      [self startSdkWith:[AppDelegate getGetuiConfig:CONFIG_APPID] appKey:[AppDelegate getGetuiConfig:CONFIG_APPKEY] appSecret:[AppDelegate getGetuiConfig:CONFIG_APPSECRET]];
 
       // [2]:注册APNS
