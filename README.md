@@ -1,6 +1,6 @@
 # getuiwrapper
 
-getui.com 个推API在Cordova/Phonegap平台的plugin，目前仅仅支持Android。
+getui.com 个推API在Cordova/Phonegap平台的plugin，支持Android/iOS.
 
 # 如何使用
 
