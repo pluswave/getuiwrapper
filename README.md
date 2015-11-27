@@ -22,3 +22,10 @@ getui.com 个推API在Cordova/Phonegap平台的plugin，目前仅仅支持Androi
 
 `cordova.plugins.getuiwrapper.getClientID( success, error)`
 
+# 致谢
+
+代码参考了 [phonegap-plugin-push](https://github.com/phonegap/phonegap-plugin-push/) 感谢相关作者！
+
+#LICENSE
+
+MIT
