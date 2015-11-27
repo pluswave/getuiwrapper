@@ -154,4 +154,55 @@
     <source-file src="src/android/armeabi-v7a/libgetuiext.so" target-dir="libs/armeabi-v7a" />
  
   </platform>
+  <!-- ios -->
+  <platform name="ios">
+    <preference name="APP_ID" />
+    <preference name="APP_KEY" />
+    <preference name="APP_SECRET" />
+
+    <config-file target="config.xml" parent="/*">
+      <feature name="getuiwrapper">
+	<param name="ios-package" value="PushPlugin"/>
+      </feature>
+    </config-file>
+
+    <config-file target="*-Info.plist" parent="UIBackgroundModes">
+      <array>
+        <string>remote-notification</string>
+      </array>
+    </config-file>
+
+    <config-file target="*/gtsdk.plist" parent="com.getui.kGTAppId" >
+      <string>$APP_ID</string>
+    </config-file>
+    <config-file target="*/gtsdk.plist" parent="com.getui.kGTAppKey" >
+      <string>$APP_KEY</string>
+    </config-file>
+    <config-file target="*/gtsdk.plist" parent="com.getui.kGTAppSecret" >
+      <string>$APP_SECRET</string>
+    </config-file>
+
+    
+    <source-file src="src/ios/AppDelegate+notification.m" />
+    <source-file src="src/ios/PushPlugin.m" />
+
+    <header-file src="src/ios/AppDelegate+notification.h" />
+    <header-file src="src/ios/PushPlugin.h" />
+
+    <source-file src="src/ios/GtSdkLib/libGeTuiSdk-1.3.0.a" framework="true"/>
+    <header-file src="src/ios/GtSdkLib/GeTuiSdk.h" />
+    <source-file src="src/ios/gtsdk.plist"  />
+    
+    <framework src="libz.dylib" />
+    <framework src="libsqlite3.0.dylib" />
+    <framework src="CFNetwork.framework" />
+    <framework src="SystemConfiguration.framework" />
+    <framework src="CoreTelephony.framework" />
+    <framework src="AVFoundation.framework" />
+    <framework src="CoreLocation.framework" />
+    <framework src="CoreBluetooth.framework" />
+
+  </platform>
+
+  
 </plugin>
