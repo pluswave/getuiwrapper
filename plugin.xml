@@ -148,7 +148,7 @@
     <source-file src="src/android/getuiwrapper.java" target-dir="src/com/pluswave/getui/wrapper" />
     <source-file src="src/android/PushReceiver.java" target-dir="src/com/pluswave/getui/wrapper" />
     <source-file src="src/android/libs/GetuiExt-2.0.3.jar" target-dir="libs" />
-    <source-file src="src/android/libs/GetuiSDK2.6.0.0.jar" target-dir="libs" />
+    <source-file src="src/android/libs/GetuiSDK2.7.0.0.jar" target-dir="libs" />
     <source-file src="src/android/libs/json_simple-1.1.jar" target-dir="libs" />
     <source-file src="src/android/armeabi/libgetuiext.so" target-dir="libs/armeabi" />
     <source-file src="src/android/armeabi-v7a/libgetuiext.so" target-dir="libs/armeabi-v7a" />
