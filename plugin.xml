@@ -182,7 +182,11 @@
       <string>$APP_SECRET</string>
     </config-file>
 
-    
+    <preference name="BLUETOOTH_USAGE_DESCRIPTION" default="通过使用蓝牙可以做到更及时的后台消息推送" />
+    <config-file target="*-Info.plist" parent="NSBluetoothPeripheralUsageDescription">
+             <string>$BLUETOOTH_USAGE_DESCRIPTION</string>
+    </config-file>
+
     <source-file src="src/ios/AppDelegate+notification.m" />
     <source-file src="src/ios/PushPlugin.m" />
 
